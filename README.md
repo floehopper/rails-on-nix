@@ -26,22 +26,17 @@ In the local (MacOS) environment:
     cd rails-on-nix
     vagrant up
 
-* Takes quite a while!
+* Takes quite a while (~12 mins on my 3.1 GHz Dual-Core Intel Core i7 MacBook Pro).
+
 * Installs the Nix package manager.
-* Runs a Nix shell which makes Ruby, the bundled gems, and their OS package dependencies available.
-* Runs `rails webpacker:install` within this shell to complete the setup of the Rails app.
 
-### Run the Rails server
+* Uses an ephemeral Nix shell to generate the `Gemfile.lock`, `gemset.nix` & `shell.nix` files to make the Rails gem, its dependent gems, and its dependent OS packages available.
 
-On your local machine, run:
+* From within the Nix shell specified by the `gemset.nix` & `shell.nix` files generated in the previous step, generates a new Rails app, `my-rails-app`.
 
-    vagrant ssh
+* Within the Rails app sub-directory, uses another ephemeral Nix shell to generate the `Gemfile.lock`, `gemset.nix` & `shell.nix` files to make the gems bundled in the Rails app, their dependent gems, and their dependent OS packages available.
 
-On the VM, run:
-
-    cd /vagrant
-    nix-shell
-    rails server --binding 0.0.0.0
+* Within the Rails app sub-directory, from within the Nix shell specified by the `gemset.nix` & `shell.nix` files generated in the previous step, installs webpacker, creates & migrates the databases, runs the tests, and runs the Rails server in the background.
 
 ### View website
 
@@ -49,22 +44,27 @@ View http://localhost:3000/ in your browser.
 
 ## Notes
 
-### Generating Rails app
+### Accessing the Rails app environment on the VM
 
-I cheated and did this in my local development environment using:
+On your local machine, run:
 
-    rails new rails-on-nix
+    vagrant ssh
 
-### Generating Gemfile.lock, shell.nix & gemset.nix
+On the VM, run:
 
-* Assuming you already have a `Gemfile` run the following command: `nix-shell -p ruby_2_6 bundler bundix --run 'bundle lock && bundix --init --ruby=ruby_2_6'`
+    cd /vagrant/my-rails-app
+    nix-shell
 
-* Add `nodejs` & `yarn` to the `buildInputs` array in the `shell.nix` generated in the previous step. These are needed in order to be able to run `rails webpacker:install` (and possibly other things?).
+### Provisioning the VM multiple times
+
+Most of the provisioning operations are fairly idempotent, but it's simplest to run the `./clean.sh` script and re-provision the VM with `vagrant provision` from a relatively clean slate.
 
 ## Further work
 
-* Provide an environment on the VM to create the Rails app, i.e. run `rails new`. It might make sense to use Nix home-manager to do this.
+* Investigate using Nix home-manager to provide a more generic environment on the VM to create the Rails app, i.e. run `rails new`.
 
-* Investigate using Nix to make node.js packages available instead of `yarn`.
+* Investigate using Nix to make node.js packages available instead of yarn.
 
 * Use different database types, e.g. PostgreSQL & MySQL.
+
+* Multiple Rails apps with different dependencies.

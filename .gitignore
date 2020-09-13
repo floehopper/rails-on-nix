@@ -1,0 +1,5 @@
+Gemfile.lock
+gemset.nix
+shell.nix
+my-rails-app
+*-console.log
