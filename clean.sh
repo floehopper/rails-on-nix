@@ -2,4 +2,4 @@
 set -e
 
 rm -f Gemfile.lock gemset.nix shell.nix
-rm -rf my-rails-app
+rm -rf rails-postgres-app
