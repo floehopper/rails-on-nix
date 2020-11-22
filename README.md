@@ -79,4 +79,6 @@ Most of the provisioning operations are fairly idempotent, but it's simplest to 
 
 * Investigate using Nix to make node.js packages available instead of yarn.
 
+* Consider moving Rails app directories under $HOME and moving database files into a sub-directory within the relevant Rails app.
 
+* Multiple Rails app requiring different versions of PostgreSQL and MySQL.
