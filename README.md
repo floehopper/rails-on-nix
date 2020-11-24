@@ -79,4 +79,4 @@ Most of the provisioning operations are _fairly_ idempotent, but I haven't teste
 
 * Investigate using Nix to make node.js packages available instead of yarn.
 
-* Multiple Rails app requiring different versions of PostgreSQL and MySQL.
+* Multiple Rails apps requiring different versions of PostgreSQL and MySQL.
