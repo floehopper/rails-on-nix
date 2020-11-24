@@ -7,6 +7,7 @@ Vagrant.configure('2') do |config|
 
   config.vm.provision 'create rails-postgres-app', type: 'shell', privileged: false, path: './create-rails-app.sh', env: {
     'RAILS_APP_NAME' => 'rails-postgres-app',
+    'RAILS_VERSION' => '6.0.3.4',
     'RAILS_DATABASE_TYPE' => 'postgresql',
     'DATABASE_PACKAGE' => 'postgresql'
   }
@@ -22,6 +23,7 @@ Vagrant.configure('2') do |config|
 
   config.vm.provision 'create rails-mysql-app', type: 'shell', privileged: false, path: './create-rails-app.sh', env: {
     'RAILS_APP_NAME' => 'rails-mysql-app',
+    'RAILS_VERSION' => '5.2.4.4',
     'RAILS_DATABASE_TYPE' => 'mysql',
     'DATABASE_PACKAGE' => 'mysql'
   }

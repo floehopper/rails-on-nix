@@ -6,7 +6,14 @@ echo "Create rails app: $RAILS_APP_NAME"
 # Copy user-level bundler config
 mkdir -p ./.bundle
 cp /vagrant/.bundle/config ./.bundle/
-cp /vagrant/Gemfile .
+
+# Create Gemfile specifically for running `rails new` command
+rm -f Gemfile
+cat <<EOS >Gemfile
+source 'https://rubygems.org'
+ruby '2.6.6'
+gem 'rails', '= $RAILS_VERSION'
+EOS
 
 # Make rails gem specified by Gemfile available from nix-shell
 rm -f Gemfile.lock gemset.nix shell.nix
@@ -25,4 +32,9 @@ nix-shell -p ruby_2_6 bundler bundix --run 'bundle lock && bundix --init --ruby=
 sed -i 's@buildInputs = \[ env \]@buildInputs = \[ env nodejs yarn '"$DATABASE_PACKAGE"' ruby_2_6 \]@g' shell.nix
 
 # Setup webpacker in rails app
-nix-shell --run 'rails webpacker:install'
+RAILS_MAJOR_VERSION=`echo $RAILS_VERSION | cut -d'.' -f1`
+if [ $RAILS_MAJOR_VERSION -gt 5 ]; then
+  nix-shell --run 'rails webpacker:install'
+else
+  nix-shell --run 'rails yarn:install'
+fi
