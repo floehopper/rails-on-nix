@@ -36,9 +36,9 @@ In the local (MacOS) environment:
     * Within the Rails app sub-directory, uses another ephemeral Nix shell to generate the `Gemfile.lock`, `gemset.nix` & `shell.nix` files to make the gems bundled in the Rails app, their dependent gems, and their dependent OS packages available.
     * Within the Rails app sub-directory, from within the Nix shell specified by the `gemset.nix` & `shell.nix` files generated in the previous step:
         * installs OS packages which are runtime dependencies for the Rails app: node.js, yarn & ruby_2_6
-        * also installs postgresql OS package
+        * also installs appropriate database OS package
         * installs webpacker
-        * sets up and starts postgres server
+        * sets up and starts database server
         * generates simple "blog" using scaffold
         * creates & migrates the databases
         * runs the tests
