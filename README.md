@@ -75,6 +75,10 @@ Most of the provisioning operations are _fairly_ idempotent, but I haven't teste
 
 ## Further work
 
+* Multiple Rails apps requiring different versions of Ruby.
+
+* Multiple Rails apps requiring different versions of Bundler.
+
 * Multiple Rails apps requiring different versions of PostgreSQL and MySQL.
 
 * Investigate using direnv/lorri in conjunction with nix to seamlessly move between different Rails app directories. See: https://github.com/direnv/direnv/wiki/Nix.
