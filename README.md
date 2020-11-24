@@ -75,8 +75,8 @@ Most of the provisioning operations are _fairly_ idempotent, but I haven't teste
 
 ## Further work
 
+* Multiple Rails apps requiring different versions of PostgreSQL and MySQL.
+
 * Investigate using Nix home-manager to provide a more generic environment on the VM to create the Rails app, i.e. run `rails new`.
 
 * Investigate using Nix to make node.js packages available instead of yarn.
-
-* Multiple Rails apps requiring different versions of PostgreSQL and MySQL.
