@@ -71,7 +71,7 @@ On the VM, run:
 
 ### Provisioning the VM multiple times
 
-Most of the provisioning operations are fairly idempotent, but it's simplest to run the `./clean.sh` script and re-provision the VM with `vagrant provision` from a relatively clean slate.
+Most of the provisioning operations are _fairly_ idempotent, but I haven't tested this thoroughly.
 
 ## Further work
 
