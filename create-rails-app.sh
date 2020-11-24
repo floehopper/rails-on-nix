@@ -2,6 +2,8 @@
 set -ex
 
 echo "Create rails app: $RAILS_APP_NAME"
+
+# Copy user-level bundler config
 mkdir -p ./.bundle
 cp /vagrant/.bundle/config ./.bundle/
 cp /vagrant/Gemfile .
