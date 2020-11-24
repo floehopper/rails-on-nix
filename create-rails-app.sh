@@ -2,6 +2,8 @@
 set -ex
 
 echo "Create rails app: $RAILS_APP_NAME"
+mkdir -p ./.bundle
+cp /vagrant/.bundle/config ./.bundle/
 cp /vagrant/Gemfile .
 
 # Make rails gem specified by Gemfile available from nix-shell
