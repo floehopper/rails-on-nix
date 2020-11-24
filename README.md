@@ -31,11 +31,11 @@ In the local (MacOS) environment:
 * Installs the Nix package manager.
 
 * For each Rails app (`rails-postgres-app` & `rails-mysql-app`):
-    * Uses a generated `Gemfile` and an ephemeral Nix shell to generate the `Gemfile.lock`, `gemset.nix` & `shell.nix` files to make the appropriate version of the Rails gem, its dependent gems, and its dependent OS packages available.
+    * Uses a generated `Gemfile` and ephemeral Nix shells to generate the `Gemfile.lock`, `gemset.nix` & `shell.nix` files to make the appropriate version of the Rails gem, its dependent gems, and its dependent OS packages available.
     * From within the Nix shell specified by the `gemset.nix` & `shell.nix` files generated in the previous step, generates a new Rails app.
-    * Within the Rails app sub-directory, uses another ephemeral Nix shell to generate the `Gemfile.lock`, `gemset.nix` & `shell.nix` files to make the gems bundled in the Rails app, their dependent gems, and their dependent OS packages available.
+    * Within the Rails app sub-directory, uses ephemeral Nix shells to generate the `Gemfile.lock`, `gemset.nix` & `shell.nix` files to make the gems bundled in the Rails app, their dependent gems, and their dependent OS packages available.
     * Within the Rails app sub-directory, from within the Nix shell specified by the `gemset.nix` & `shell.nix` files generated in the previous step:
-        * installs OS packages which are runtime dependencies for the Rails app: node.js, yarn & ruby_2_6
+        * installs OS packages which are runtime dependencies for the Rails app: node.js, yarn & ruby_x_y
         * also installs appropriate database OS package
         * runs `rails yarn:install` or `rails webpacker:install` depending on the major version of Rails
         * sets up and starts database server
@@ -74,8 +74,6 @@ On the VM, run:
 Most of the provisioning operations are _fairly_ idempotent, but I haven't tested this thoroughly.
 
 ## Further work
-
-* Multiple Rails apps requiring different versions of Ruby.
 
 * Multiple Rails apps requiring different versions of Bundler.
 
