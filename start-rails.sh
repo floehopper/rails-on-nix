@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Start rails: $RAILS_APP_NAME"
-cd /vagrant/$RAILS_APP_NAME
+cd $RAILS_APP_NAME
 
 # Generate blog in rails app using scaffold
 nix-shell --run 'rails generate scaffold Post title:string content:text'

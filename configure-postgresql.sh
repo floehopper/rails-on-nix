@@ -2,7 +2,7 @@
 set -e
 
 echo "Configure PostgreSQL: $RAILS_APP_NAME"
-cd /vagrant/$RAILS_APP_NAME
+cd $RAILS_APP_NAME
 
 # Automatically setup & start PostgreSQL server when nix-shell starts
 mv shell{,.orig}.nix
@@ -10,7 +10,7 @@ head -n -1 shell.orig.nix > shell.nix
 
 cat <<EOS >>shell.nix
 shellHook = ''
-  export PGHOST=\$HOME/postgres
+  export PGHOST=$HOME/$RAILS_APP_NAME/tmp/postgres
   export PGDATA=\$PGHOST/data
   export PGDATABASE=postgres
   export PGLOG=\$PGHOST/postgres.log

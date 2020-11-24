@@ -66,7 +66,7 @@ On your local machine, run:
 
 On the VM, run:
 
-    cd /vagrant/$RAILS_APP_NAME
+    cd $RAILS_APP_NAME
     nix-shell
 
 ### Provisioning the VM multiple times
@@ -78,7 +78,5 @@ Most of the provisioning operations are _fairly_ idempotent, but I haven't teste
 * Investigate using Nix home-manager to provide a more generic environment on the VM to create the Rails app, i.e. run `rails new`.
 
 * Investigate using Nix to make node.js packages available instead of yarn.
-
-* Consider moving Rails app directories under $HOME and moving database files into a sub-directory within the relevant Rails app.
 
 * Multiple Rails app requiring different versions of PostgreSQL and MySQL.
