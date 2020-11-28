@@ -18,21 +18,17 @@ shellHook = ''
 
   if [ ! -d \$MYSQL_DATA ]; then
     echo 'MySQL: Installing system tables...'
-    mysql_install_db --datadir=\$MYSQL_DATA
+    mysqld --initialize-insecure --datadir=\$MYSQL_DATA
     echo 'MySQL: ...done'
   fi
 
-  if ! mysqladmin status
+  if ! mysqladmin status --user=root
   then
     echo 'MySQL: Starting server...'
-    mysqld --datadir=\$MYSQL_DATA &
-    while ! mysqladmin status; do
+    mysqld_safe --datadir=\$MYSQL_DATA &
+    while ! mysqladmin status --user=root; do
       sleep 1
     done
-    echo 'MySQL: ...done'
-
-    echo 'MySQL: Setting password for root user on localhost...'
-    mysql -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD(''');"
     echo 'MySQL: ...done'
   fi
 '';
