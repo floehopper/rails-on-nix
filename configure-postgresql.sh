@@ -23,7 +23,7 @@ shellHook = ''
 
   if ! pg_ctl status
   then
-    pg_ctl start -l \$PGLOG -o "--unix_socket_directories='\$PGHOST'"
+    pg_ctl start -l \$PGLOG -o "--unix_socket_directories='\$PGHOST' --listen_addresses='''"
   fi
 '';
 }

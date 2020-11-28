@@ -25,7 +25,7 @@ shellHook = ''
   if ! mysqladmin status --user=root
   then
     echo 'MySQL: Starting server...'
-    mysqld_safe --datadir=\$MYSQL_DATA &
+    mysqld_safe --datadir=\$MYSQL_DATA --skip-networking &
     while ! mysqladmin status --user=root; do
       sleep 1
     done
