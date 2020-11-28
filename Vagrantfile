@@ -3,6 +3,10 @@ Vagrant.configure('2') do |config|
   config.vm.network 'forwarded_port', guest: 3000, host: 3000
   config.vm.network 'forwarded_port', guest: 3001, host: 3001
 
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 2048
+  end
+
   config.vm.provision 'install-nix', type: 'shell', privileged: false, path: './install-nix.sh'
 
   config.vm.provision 'ruby2.5-rails6.0.3.4-postgres10-create', type: 'shell', privileged: false, path: './create-rails-app.sh', env: {
